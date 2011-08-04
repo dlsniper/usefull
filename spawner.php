@@ -77,16 +77,20 @@ while ($i < $maxThreads) {
 
 // Check if we have older crons running
 $j--;
-if (false !== isset($maxThreads[$j])) {
-
+if (false !== isset($threads[$j])) {
     // Get the number of old threads that are running and shouldn't be anymore
-    $oldCrons = explode('-modulo ', $maxThreads[$j]);
+    $oldCrons = explode('-modulo ', $threads[$j]);
     $oldCronsNumber = $oldCrons[1];
 
     // Kill them
     for ($i = $maxThreads; $i < $oldCronsNumber; $i++) {
+        // Fetch the PID
+        $stuff = explode('-modulo ', $threads[$i]);
+        $stuff = explode('-id ', $stuff[0]);
+        $stuff = explode(' ', $stuff[0]);
+
         // With fire
-        exec('kill -9 '. $i);
+        exec('kill -9 '. $stuff[0]);
     }
 }
 
