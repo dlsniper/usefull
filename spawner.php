@@ -85,9 +85,7 @@ if (false !== isset($threads[$j])) {
     // Kill them
     for ($i = $maxThreads; $i < $oldCronsNumber; $i++) {
         // Fetch the PID
-        $stuff = explode('-modulo ', $threads[$i]);
-        $stuff = explode('-id ', $stuff[0]);
-        $stuff = explode(' ', $stuff[0]);
+        $stuff = explode(' ', $threads[$i]);
 
         // With fire
         exec('kill -9 '. $stuff[0]);
